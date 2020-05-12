@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <th>Hedgehog</th>
+      <th>On duty</th>
+    </tr>
+    {% for hog in hogs %}
+    <tr>
+      <td>{{ hog.name }}</td>
+      <td>{{ hog.onduty }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
