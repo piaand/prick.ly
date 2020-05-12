@@ -17,4 +17,5 @@ With Prick.ly it is possible to
 ## Database description
 Below is a picture about the database plan for the Prick.ly service
 
-![DB Prick.ly](prickly_db.png)
+![DB Prick.ly](documentation/prickly_db.png)
+
