@@ -16,6 +16,8 @@ With Prick.ly it is possible to
 - Set a status of a hedgehog as "unavailable" (for admins)
 - Delete a hedgehog from the database (for admins)
 
+To see the updated user stories documentation, visit [here](documentation/userstories.md).
+
 ## Database description
 Below is a picture about the database plan for the Prick.ly service
 
