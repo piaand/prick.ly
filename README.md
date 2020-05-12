@@ -1,5 +1,7 @@
 # Prick.ly - Hedgehog Petting Zoo
-Project for Database application course in Helsinki University. Project under construction
+Project for Database application course in Helsinki University. See the live project [here](https://prickly.herokuapp.com/).
+
+Project under construction
 
 ## Project description
 Pricky.ly is the world’s first hedgehog petting zoo. Hedgehog lovers may log into the service to reseach the wonderfull various kind of hedgehogs they would like to meet in person. User that is logged in may book a meeting time with one or more hedgehogs at the same time - given that the hedgehogs are available and not on holiday or booked by some other keen hogger. Prick.ly service administratives can add new hedgehogs to the service and make sure that the status of every hedgehog is correct.
