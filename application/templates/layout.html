@@ -11,7 +11,7 @@
 	      User logged in {{ current_user.name }}. <a href="{{ url_for('auth_logout') }}">Log out</a>
       </p>
       {% else %}
-      <a href="{{ url_for('auth_login') }}">Log in</a>
+      <a href="{{ url_for('auth_login') }}">Log in</a> or <a href="{{ url_for('auth_signup') }}">Sign up</a>
       {% endif %}
       <ul>
           <li><a href="{{ url_for('hogs_index') }}">List all hedgehogs</a></li>
