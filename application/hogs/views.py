@@ -1,6 +1,7 @@
 from application import app, db
 from flask import redirect, render_template, request, url_for
 from application.hogs.models import Hog
+from application.hogs.forms import HogForm
 
 @app.route("/hogs", methods=["GET"])
 def hogs_index():
@@ -8,7 +9,7 @@ def hogs_index():
 
 @app.route("/hogs/new/")
 def hogs_form():
-    return render_template("hogs/new.html")
+    return render_template("hogs/new.html", form = HogForm())
 
 @app.route("/hogs/<hog_id>/", methods=["POST"])
 def hog_set_onduty(hog_id):
@@ -21,8 +22,14 @@ def hog_set_onduty(hog_id):
 
 @app.route("/hogs/", methods=["POST"])
 def hogs_create():
-    hog = Hog(request.form.get("name"))
+    form = HogForm(request.form)
 
+    if not form.validate():
+        return render_template("hogs/new.html", form = form)
+    
+    hog = Hog(form.name.data)
+    hog.onduty = form.onduty.data
     db.session().add(hog)
     db.session().commit()
+
     return redirect(url_for("hogs_index"))
