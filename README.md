@@ -1,7 +1,7 @@
 # Prick.ly - Hedgehog Petting Zoo
 Project for Database application course in Helsinki University. See the live project [here](https://prickly.herokuapp.com/).
 
-To log in to the service use the following credentials:\
+To log in to the service create your own credentials or use the following:\
 username:<b> sonic</b>\
 password:<b> hedgehog</b>
 
