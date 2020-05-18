@@ -6,6 +6,13 @@
   </head>
 
   <body>
+      {% if current_user.is_authenticated %}
+      <p>
+	      User logged in {{ current_user.name }}. <a href="{{ url_for('auth_logout') }}">Log out</a>
+      </p>
+      {% else %}
+      <a href="{{ url_for('auth_login') }}">Log in</a>
+      {% endif %}
       <ul>
           <li><a href="{{ url_for('hogs_index') }}">List all hedgehogs</a></li>
           <li><a href="{{ url_for('hogs_form') }}">Add a hedgehog</a></li>
