@@ -6,6 +6,7 @@
       <th>Booker</th>
 	  <th>Starting time</th>
 	  <th>Duration in minutes</th>
+	  <th>List of the hedgehogs</th>
 	  <th>Has booker verified the time?</th>
     </tr>
     {% for booking in reservations %}
@@ -13,6 +14,7 @@
       <td>{{ booking.accountId }}</td>
 	  <td>{{ booking.startTime }}</td>
 	  <td>{{ booking.durationMin }}</td>
+	  <td><a href="{{ url_for('reservation_hogs', reservation_id=booking.id) }}">See attending hedgehogs</a></td>
 	  <td>{{ booking.verified }}</td>
 	  <td>
 		<form method="POST" action="{{ url_for('reservation_verification', reservation_id=booking.id) }}">
