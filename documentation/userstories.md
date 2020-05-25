@@ -26,6 +26,37 @@ CREATE TABLE hog (\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHECK (onduty IN (0, 1))\
 )
 
+CREATE TABLE account (\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id INTEGER NOT NULL,\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;date_created DATETIME,\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;date_modified DATETIME,\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name VARCHAR(144) NOT NULL,\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;username VARCHAR(144) NOT NULL,\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;password VARCHAR(144) NOT NULL,\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRIMARY KEY (id)\
+)
+
+CREATE TABLE reservation (\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id INTEGER NOT NULL,\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;date_created DATETIME,\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;date_modified DATETIME,\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"startTime" DATETIME NOT NULL,\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"durationMin" INTEGER NOT NULL,\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"accountId" INTEGER NOT NULL,\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;verified BOOLEAN NOT NULL,\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRIMARY KEY (id),\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOREIGN KEY("accountId") REFERENCES account (id),\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHECK (verified IN (0, 1))\
+)
+
+CREATE TABLE hog_identifier (\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reservation_id INTEGER,\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hog_id INTEGER, \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOREIGN KEY(reservation_id) REFERENCES reservation (id), \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOREIGN KEY(hog_id) REFERENCES hog (id)\
+)
+
+
 ## SQL queries
 Below are the in production SQL queries and their respective user stories:
 
