@@ -21,10 +21,10 @@ def reservations_form():
 def reservation_verification(reservation_id):
 
     book = Reservation.query.get(reservation_id)
-    book.verification = True
+    book.verified = True
     db.session().commit()
   
-    return redirect(url_for("reservation_index"))
+    return redirect(url_for("reservations_index"))
 
 @app.route("/reservations/", methods=["POST"])
 @login_required
