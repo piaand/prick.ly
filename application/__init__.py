@@ -23,6 +23,9 @@ from application.hogs import views
 from application.auth import models
 from application.auth import views
 
+from application.reservations import models
+from application.reservations import views
+
 # login configurations
 from application.auth.models import User
 from os import urandom
