@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+	<h1>Reservation at <span>{{ booking.startTime }}</span></h1>
+    <tr>
+	  <th>Hedgehog's name</th>
+    </tr>
+    {% for hog in hedgehogs %}
+    <tr>
+      <td>{{ hog.name }}</td>
+    </tr>
+	{% endfor %}
+  </table>
+<form method="POST" action="{{ url_for('reservation_add_hedgehog', reservation_id=booking.id) }}">
+	<input type="name" placeholder="Write hedgehod's name"/>
+	<input type="submit" value="Add another hedgehog to this session time"/>
+</form>
+{% endblock %}
