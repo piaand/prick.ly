@@ -10,3 +10,4 @@ class Hog(Base):
     def __init__(self, name):
         self.name = name
         self.onduty = False
+        
