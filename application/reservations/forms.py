@@ -8,3 +8,9 @@ class ReservationForm(FlaskForm):
 
     class Meta:
         csrf = False
+        
+class SummaryForm(FlaskForm):
+    hog = StringField("Name of the hedgehog", validators=[validators.Length(min=3)])
+
+    class Meta:
+        csrf = False
