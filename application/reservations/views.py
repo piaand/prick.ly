@@ -75,3 +75,14 @@ def reservation_create():
     db.session().commit()
 
     return redirect(url_for("reservations_index"))
+
+
+@app.route("/reservations/<reservation_id>/delete", methods=["POST"])
+@login_required
+def reservation_delete(reservation_id):
+    
+    book = Reservation.query.get(reservation_id)
+    db.session.delete(book)
+    db.session().commit()
+  
+    return redirect(url_for("reservations_index"))
