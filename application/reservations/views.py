@@ -4,7 +4,7 @@ from flask import redirect, render_template, request, url_for
 
 from application.hogs.models import Hog
 from application.reservations.models import Reservation
-from application.reservations.forms import ReservationForm
+from application.reservations.forms import ReservationForm, SummaryForm
 
 @app.route("/reservations", methods=["GET"])
 @login_required
@@ -22,18 +22,31 @@ def reservations_form():
 def reservation_hogs(reservation_id):
     
     book = Reservation.query.get(reservation_id)
-    return render_template("reservations/summary.html", hedgehogs = book.get_hogs(), booking = book)
+    return render_template("reservations/summary.html", hedgehogs = book.get_hogs(), booking = book, form = SummaryForm())
 
 @app.route("/reservations/<reservation_id>/hog", methods=["POST"])
 @login_required
 def reservation_add_hedgehog(reservation_id):
 
-	return redirect(url_for("reservations_index"))	
+    form = SummaryForm(request.form)
+    
+    if not form.validate():
+        return redirect(url_for("reservation_hogs", reservation_id = reservation_id, form = form))
+    
+    hog = Hog.query.filter_by(name=form.hog.data).first()
+    if not hog:
+        return redirect(url_for("reservation_hogs", reservation_id = reservation_id, form = form))
+    
+    book = Reservation.query.get(reservation_id)
+    book.hogs.append(hog)
+
+    db.session().commit()
+    return redirect(url_for("reservation_hogs", reservation_id = reservation_id))
 
 @app.route("/reservations/<reservation_id>/", methods=["POST"])
 @login_required
 def reservation_verification(reservation_id):
-
+    
     book = Reservation.query.get(reservation_id)
     book.verified = True
     db.session().commit()

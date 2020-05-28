@@ -13,7 +13,23 @@
 	{% endfor %}
   </table>
 <form method="POST" action="{{ url_for('reservation_add_hedgehog', reservation_id=booking.id) }}">
-	<input type="name" placeholder="Write hedgehod's name"/>
-	<input type="submit" value="Add another hedgehog to this session time"/>
+  <table>
+    <tr>
+      <td>{{ form.hog.label }}</td>
+      <td placeholder="Write hedgehod's name">{{ form.hog }}</td>
+      <td>
+        <ul>
+          {% for error in form.hog.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <input type="submit" value="Add another hedgehog to this session time"/>
+      </td>
+    </tr>
+  </table>
 </form>
 {% endblock %}
