@@ -14,12 +14,12 @@ class Hog(Base):
         
     @staticmethod
     def find_popular_hogs():
-        stmt = text(" SELECT hog.name AS name, COALESCE(total, 0), hog.onduty AS onduty, hog.id AS id FROM Hog"
+        stmt = text(" SELECT hog.name AS name, COALESCE(total, 0), hog.onduty AS onduty, hog.id AS id FROM hog"
                     " LEFT JOIN ("
                     " SELECT SUM(reservation.durationMin) AS total, hog_identifier.hog_id AS identify FROM reservation"
                     " LEFT JOIN hog_identifier ON hog_identifier.reservation_id = reservation.id"
-                    " GROUP BY identify)"
-                    " ON identify = hog.id"
+                    " GROUP BY identify) AS derivedTable"
+                    " ON identify = id"
                     " ORDER BY total DESC")
         res = db.engine.execute(stmt)
   
