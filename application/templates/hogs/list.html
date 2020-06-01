@@ -12,8 +12,7 @@
     {% for hog in hogs %}
     <tr>
       <td>{{ hog.name }}</td>
-      <td> empty </td>
-      <!-- <td>{{ hog.sum_minutes }}</td> -->
+      <td>{{ hog.minutes }}</td>
 	    <td>{{ hog.onduty }}</td>
 	    <td>
         <form method="POST" action="{{ url_for('hog_set_onduty', hog_id=hog.id) }}">
