@@ -66,3 +66,9 @@ Below are the in production SQL queries and their respective user stories:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INSERT INTO Hog (date_created, date_modified, name, onduty) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?)
 - As the admin I want to set hedgehogs on or off duty so that hedgehogs get a decent rest and are not overworked\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UPDATE Hog SET date_modified=CURRENT_TIMESTAMP, onduty=? WHERE hog.id = ?
+- As a user I want to inspect all the details of a specific hedgehog at one view so that I can see all the information that may impact my decision\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT hog.name AS name, COALESCE(total, 0), hog.onduty AS onduty, hog.id AS id FROM hog\
+LEFT JOIN ( SELECT SUM(reservation.duration_min) AS total, hog_identifier.hog_id AS identify FROM reservation\
+LEFT JOIN hog_identifier ON hog_identifier.reservation_id = reservation.id GROUP BY identify) AS derivedtable\
+ON identify = id ORDER BY total DESC
+
