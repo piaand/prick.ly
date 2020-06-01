@@ -68,7 +68,7 @@ def reservation_create():
         return render_template("reservations/new.html", form = form)
     
     book = Reservation(form.duration.data)
-    book.accountId = current_user.id
+    book.account_id = current_user.id
     book.hogs.append(hog)
 
     db.session().add(book)

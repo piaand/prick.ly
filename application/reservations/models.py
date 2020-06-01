@@ -9,15 +9,15 @@ hog_identifier = db.Table('hog_identifier',
 
 class Reservation(Base):
 
-    startTime = db.Column(db.DateTime, nullable=False)
-    durationMin = db.Column(db.Integer, nullable=False)
-    accountId = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
+    start_time = db.Column(db.DateTime, nullable=False)
+    duration_min = db.Column(db.Integer, nullable=False)
+    account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
     verified = db.Column(db.Boolean, nullable=False)
     hogs = db.relationship("Hog", secondary=hog_identifier)
 
-    def __init__(self, durationMin):
-        self.startTime = db.func.current_timestamp()
-        self.durationMin = durationMin
+    def __init__(self, duration_min):
+        self.start_time = db.func.current_timestamp()
+        self.duration_min = duration_min
         self.verified = False
         
     def get_hogs(self):
