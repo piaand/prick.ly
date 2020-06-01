@@ -13,9 +13,9 @@
 			</tr>
 			{% for booking in reservations %}
 			<tr>
-			<td>{{ booking.accountId }}</td>
-			<td>{{ booking.startTime }}</td>
-			<td>{{ booking.durationMin }}</td>
+			<td>{{ booking.account_id }}</td>
+			<td>{{ booking.start_time }}</td>
+			<td>{{ booking.duration_min }}</td>
 			<td><a href="{{ url_for('reservation_hogs', reservation_id=booking.id) }}">See attending hedgehogs</a></td>
 			<td>{{ booking.verified }}</td>
 			<td>
