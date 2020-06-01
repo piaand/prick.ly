@@ -7,7 +7,7 @@ from application.hogs.forms import HogForm
 
 @app.route("/hogs", methods=["GET"])
 def hogs_index():
-    return render_template("hogs/list.html", hogs = Hog.query.all())
+    return render_template("hogs/list.html", hogs = Hog.find_popular_hogs())
 
 @app.route("/hogs/new/")
 @login_required
