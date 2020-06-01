@@ -6,17 +6,20 @@
   <table>
     <tr>
       <th>Hedgehog</th>
+      <th>Reservation minutes</th>
       <th>On duty</th>
     </tr>
     {% for hog in hogs %}
     <tr>
       <td>{{ hog.name }}</td>
-	  <td>{{ hog.onduty }}</td>
-	  <td>
-		<form method="POST" action="{{ url_for('hog_set_onduty', hog_id=hog.id) }}">
-			<input type="submit" value="Put hedgehog to work!"/>
-		  </form>
-	  </td>
+      <td> empty </td>
+      <!-- <td>{{ hog.sum_minutes }}</td> -->
+	    <td>{{ hog.onduty }}</td>
+	    <td>
+        <form method="POST" action="{{ url_for('hog_set_onduty', hog_id=hog.id) }}">
+          <input type="submit" value="Put hedgehog to work!"/>
+        </form>
+      </td>
     </tr>
     {% endfor %}
   </table>
