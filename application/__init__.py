@@ -15,17 +15,6 @@ else:
 
 db = SQLAlchemy(app)
 
-from application import views
-
-from application.hogs import models
-from application.hogs import views
-
-from application.auth import models
-from application.auth import views
-
-from application.reservations import models
-from application.reservations import views
-
 # login configurations
 from application.auth.models import User
 from os import urandom
@@ -37,6 +26,37 @@ login_manager.init_app(app)
 
 login_manager.login_view = "auth_login"
 login_manager.login_message = "Please login to use this functionality."
+
+# roles in login
+from functools import wraps
+
+def login_required(_func=None, *, role="ANY"):
+    def wrapper(func):
+        @wraps(func)
+        def decorated_view(*args, **kwargs):
+            if not (current_user and current_user.is_authenticated):
+                return login_manager.unauthorized()
+
+            acceptable_roles = set(("ANY", *current_user.roles()))
+
+            if role not in acceptable_roles:
+                return login_manager.unauthorized()
+
+            return func(*args, **kwargs)
+        return decorated_view
+    return wrapper if _func is None else wrapper(_func)
+
+# load application content
+from application import views
+
+from application.hogs import models
+from application.hogs import views
+
+from application.auth import models
+from application.auth import views
+
+from application.reservations import models
+from application.reservations import views
 
 @login_manager.user_loader
 def load_user(user_id):
