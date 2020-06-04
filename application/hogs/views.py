@@ -1,5 +1,5 @@
-from application import app, db
-from flask_login import login_required
+from application import app, db, login_required
+from flask_login import current_user
 from flask import redirect, render_template, request, url_for
 
 from application.hogs.models import Hog
@@ -25,7 +25,7 @@ def hog_set_onduty(hog_id):
     return redirect(url_for("hogs_index"))
 
 @app.route("/hogs/", methods=["POST"])
-@login_required
+@login_required(role="ADMIN")
 def hogs_create():
     form = HogForm(request.form)
 
