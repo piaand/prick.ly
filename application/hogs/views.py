@@ -31,6 +31,16 @@ def hog_set_onduty(hog_id):
   
     return redirect(url_for("hogs_index"))
 
+@app.route("/hogs/<hog_id>/delete", methods=["POST"])
+@login_required(role="ADMIN")
+def hog_delete(hog_id):
+
+    hog = Hog.query.get(hog_id)
+    db.session.delete(hog)
+    db.session().commit()
+  
+    return redirect(url_for("hogs_index"))
+
 @app.route("/hogs/", methods=["POST"])
 @login_required(role="ADMIN")
 def hogs_create():
