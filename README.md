@@ -5,6 +5,10 @@ To log in to the service create your own credentials or use the following:\
 username:<b> sonic</b>\
 password:<b> hedgehog</b>
 
+To log in to the service as admin use the following:\
+username:<b> admin</b>\
+password:<b> hogmaster</b>
+
 Project under construction
 
 ## Project description
