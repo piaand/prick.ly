@@ -10,12 +10,12 @@ def hogs_index():
     return render_template("hogs/list.html", hogs = Hog.find_popular_hogs())
 
 @app.route("/hogs/new/")
-@login_required
+@login_required(role="ADMIN")
 def hogs_form():
     return render_template("hogs/new.html", form = HogForm())
 
 @app.route("/hogs/<hog_id>/", methods=["POST"])
-@login_required
+@login_required(role="ADMIN")
 def hog_set_onduty(hog_id):
 
     hog = Hog.query.get(hog_id)
