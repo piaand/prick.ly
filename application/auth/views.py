@@ -41,7 +41,7 @@ def auth_signup():
         return render_template("auth/signupform.html", form = form,
                                error = "This username is already taken")
         
-    account = User(form.name.data, form.username.data, form.password.data)
+    account = User(form.name.data, form.username.data, form.password.data, "USER")
 
     db.session().add(account)
     db.session().commit()
