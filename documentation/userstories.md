@@ -33,6 +33,7 @@ CREATE TABLE account (\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name VARCHAR(144) NOT NULL,\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;username VARCHAR(144) NOT NULL,\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;password VARCHAR(144) NOT NULL,\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;access VARCHAR(144) NOT NULL,\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRIMARY KEY (id)\
 )
 
@@ -40,12 +41,12 @@ CREATE TABLE reservation (\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id INTEGER NOT NULL,\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;date_created DATETIME,\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;date_modified DATETIME,\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"startTime" DATETIME NOT NULL,\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"durationMin" INTEGER NOT NULL,\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"accountId" INTEGER NOT NULL,\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;start_time DATETIME NOT NULL,\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;duration_min INTEGER NOT NULL,\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;account_id INTEGER NOT NULL,\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;verified BOOLEAN NOT NULL,\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRIMARY KEY (id),\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOREIGN KEY("accountId") REFERENCES account (id),\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOREIGN KEY(account_id) REFERENCES account (id),\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHECK (verified IN (0, 1))\
 )
 
