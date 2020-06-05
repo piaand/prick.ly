@@ -5,7 +5,9 @@
 	<div class="row">
 		<table>
 			<tr>
+			{% if user.is_authenticated and user.is_admin() %}
 			<th>Booker</th>
+			{% endif %}
 			<th>Starting time</th>
 			<th>Duration in minutes</th>
 			<th>List of the hedgehogs</th>
@@ -13,7 +15,9 @@
 			</tr>
 			{% for booking in reservations %}
 			<tr>
+			{% if user.is_authenticated and user.is_admin() %}
 			<td>{{ booking.account_id }}</td>
+			{% endif %}
 			<td>{{ booking.start_time }}</td>
 			<td>{{ booking.duration_min }}</td>
 			<td><a href="{{ url_for('reservation_hogs', reservation_id=booking.id) }}">See attending hedgehogs</a></td>

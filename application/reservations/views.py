@@ -3,14 +3,20 @@ from flask_login import login_required, current_user
 from flask import redirect, render_template, request, url_for
 
 from application.hogs.models import Hog
+from application.auth.models import User
 from application.reservations.models import Reservation
 from application.reservations.forms import ReservationForm, SummaryForm
 
 @app.route("/reservations", methods=["GET"])
 @login_required
 def reservations_index():
-    #this will eventually show only reservations by current_user.id
-    return render_template("reservations/list.html", reservations = Reservation.query.all())
+    user_id = current_user.get_id()
+    user = User.query.get(user_id)
+    
+    if user.is_admin():
+        return render_template("reservations/list.html", reservations = Reservation.query.all(), user = user)
+    else:
+        return render_template("reservations/list.html", reservations = db.session.query(Reservation).filter(Reservation.account_id == user.get_id()), user = user)
 
 @app.route("/reservations/new/")
 @login_required

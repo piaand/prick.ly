@@ -1,6 +1,7 @@
 from application import db
 from application.models import Base
 from sqlalchemy.orm import relationship, backref
+from sqlalchemy.sql import text
 
 hog_identifier = db.Table('hog_identifier',
     db.Column('reservation_id', db.Integer, db.ForeignKey('reservation.id')),
