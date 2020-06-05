@@ -4,15 +4,22 @@ from flask import redirect, render_template, request, url_for
 
 from application.hogs.models import Hog
 from application.hogs.forms import HogForm
+from application.auth.models import User
+
 
 @app.route("/hogs", methods=["GET"])
 def hogs_index():
-    return render_template("hogs/list.html", hogs = Hog.find_popular_hogs())
+    if current_user.is_authenticated:
+        user_id = current_user.get_id()
+        user = User.query.get(user_id)
+    else:
+        user = User("Visitor","visitor","visit","GUEST")
+    return render_template("hogs/list.html", hogs = Hog.find_popular_hogs(), user = user)
 
 @app.route("/hogs/new/")
 @login_required(role="ADMIN")
 def hogs_form():
-    return render_template("hogs/new.html", form = HogForm())
+    return render_template("hogs/new.html", form = HogForm(), user = current_user)
 
 @app.route("/hogs/<hog_id>/", methods=["POST"])
 @login_required(role="ADMIN")

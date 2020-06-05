@@ -1,11 +1,6 @@
 from application import db
 from application.models import Base
 
-ROLES = {
-    'guest': 0,
-    'user': 1,
-    'admin': 2
-}
 
 class User(Base):
 
