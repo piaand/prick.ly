@@ -63,8 +63,9 @@ Below are the in production SQL queries and their respective user stories:
 
 - As the admin I want to see all hedgehogs in the service\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT hog.id AS hog_id, hog.date_created AS hog_date_created, hog.date_modified AS hog_date_modified, hog.name AS hog_name, hog.onduty AS hog_onduty
-- As the admin I want to add to the listing so that the listing remains up to date\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INSERT INTO Hog (date_created, date_modified, name, onduty) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?)
+- As the admin I want to add and remove hedgehogs to the listing so that the listing remains up to date\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INSERT INTO Hog (date_created, date_modified, name, onduty) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?)\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DELETE FROM hog WHERE hog.id = ?
 - As the admin I want to set hedgehogs on or off duty so that hedgehogs get a decent rest and are not overworked\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UPDATE Hog SET date_modified=CURRENT_TIMESTAMP, onduty=? WHERE hog.id = ?
 - As a user I want to inspect all the details of a specific hedgehog at one view so that I can see all the information that may impact my decision\
