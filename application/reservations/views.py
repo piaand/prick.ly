@@ -8,6 +8,7 @@ from application.reservations.models import Reservation
 from application.reservations.forms import ReservationForm, SummaryForm, ReservationSelectForm
 
 import datetime
+from datetime import timedelta
 
 @app.route("/reservations", methods=["GET"])
 @login_required
@@ -32,9 +33,21 @@ def reservations_form():
 def reservations_form_select(start, duration):
     
     form = ReservationSelectForm()
-    hogs = hogs = db.session.query(Hog).all()
-    hog_selection = [(i.id, i.name) for i in hogs]
+    starter = datetime.datetime.strptime(start, '%Y-%m-%d')
+    end = starter + timedelta(days=1)
+    hogs = Hog.find_available_hogs(starter, end)
+    print("Printing them hogs")
+    print(hogs)
+    hog_selection = []
+    for hog in hogs:
+        print("inside first loop")
+        print(hog)
+        choice = (hog['id'], hog['name'])
+        hog_selection.append(choice)
+
     form.hog.choices = hog_selection
+    print("Printing them selection")
+    print(hog_selection)
     
     return render_template("reservations/new_select.html", form=form, start=start, duration=duration)
 
