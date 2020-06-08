@@ -73,7 +73,7 @@ def reservation_create():
     if not hog:
         return render_template("reservations/new.html", form = form)
     
-    book = Reservation(form.duration.data)
+    book = Reservation(form.duration.data, form.start.data)
     book.account_id = current_user.id
     book.hogs.append(hog)
 
