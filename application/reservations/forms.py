@@ -6,7 +6,12 @@ from wtforms.validators import NumberRange
 class ReservationForm(FlaskForm):
     start = DateField('DatePicker', format='%Y-%m-%d')
     duration = IntegerField("How long session (in minutes)", validators=[NumberRange(min=5, max=60, message='one session should be between 5 and 60 minutes')])
-    hog = SelectField("Name of the hedgehog:", coerce=int)
+
+    class Meta:
+        csrf = False
+        
+class ReservationSelectForm(FlaskForm):
+    hog = SelectField("Select the hedgehog:", coerce=int)
 
     class Meta:
         csrf = False
