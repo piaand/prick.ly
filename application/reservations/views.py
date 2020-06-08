@@ -21,7 +21,12 @@ def reservations_index():
 @app.route("/reservations/new/")
 @login_required
 def reservations_form():
-    return render_template("reservations/new.html", form = ReservationForm())
+    
+    form = ReservationForm()
+    hogs = hogs = db.session.query(Hog).all()
+    hog_selection = [(i.id, i.name) for i in hogs]
+    form.hog.choices = hog_selection
+    return render_template("reservations/new.html", form=form)
 
 @app.route("/reservations/<reservation_id>/", methods=["GET"])
 @login_required
@@ -62,6 +67,7 @@ def reservation_verification(reservation_id):
 @app.route("/reservations/", methods=["POST"])
 @login_required
 def reservation_create():
+    
     form = ReservationForm(request.form)
 
     if not form.validate():
