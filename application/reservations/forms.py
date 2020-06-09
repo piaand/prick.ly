@@ -17,7 +17,7 @@ class ReservationSelectForm(FlaskForm):
         csrf = False
         
 class SummaryForm(FlaskForm):
-    hog = StringField("Write the name of the hedgehog:", validators=[validators.Length(min=3)])
+    hog = SelectField("Select the hedgehog:", coerce=int)
 
     class Meta:
         csrf = False

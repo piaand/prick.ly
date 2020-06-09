@@ -6,6 +6,7 @@ from application.hogs.models import Hog
 from application.auth.models import User
 from application.reservations.models import Reservation
 from application.reservations.forms import ReservationForm, SummaryForm, ReservationSelectForm
+from .services import get_available_hogs
 
 import datetime
 from datetime import timedelta
@@ -32,23 +33,9 @@ def reservations_form():
 @login_required
 def reservations_form_select(start, duration):
     
+    hogs = get_available_hogs(start)
     form = ReservationSelectForm()
-    starter = datetime.datetime.strptime(start, '%Y-%m-%d')
-    end = starter + timedelta(days=1)
-    hogs = Hog.find_available_hogs(starter, end)
-    print("Printing them hogs")
-    print(hogs)
-    hog_selection = []
-    for hog in hogs:
-        print("inside first loop")
-        print(hog)
-        choice = (hog['id'], hog['name'])
-        hog_selection.append(choice)
-
-    form.hog.choices = hog_selection
-    print("Printing them selection")
-    print(hog_selection)
-    
+    form.hog.choices = hogs   
     return render_template("reservations/new_select.html", form=form, start=start, duration=duration)
 
 @app.route("/reservations/new/reservation", methods=["POST"])
@@ -70,13 +57,7 @@ def reservation_add_hedgehog(reservation_id):
 
     form = SummaryForm(request.form)
     
-    if not form.validate():
-        return redirect(url_for("reservation_hogs", reservation_id = reservation_id, form = form))
-    
-    hog = Hog.query.filter_by(name=form.hog.data).first()
-    if not hog:
-        return redirect(url_for("reservation_hogs", reservation_id = reservation_id, form = form))
-    
+    hog = Hog.query.get(form.hog.data)
     book = Reservation.query.get(reservation_id)
     book.hogs.append(hog)
 
@@ -98,7 +79,11 @@ def reservation_verification(reservation_id):
 def reservation_hogs(reservation_id):
     
     book = Reservation.query.get(reservation_id)
-    return render_template("reservations/summary.html", hedgehogs = book.get_hogs(), booking = book, form = SummaryForm())
+    required_time = book.start_time
+    hogs = get_available_hogs(required_time)
+    form = SummaryForm()
+    form.hog.choices = hogs 
+    return render_template("reservations/summary.html", hedgehogs = book.get_hogs(), booking = book, form = form)
 
 @app.route("/reservations/<start>/<duration>/", methods=["POST"])
 @login_required
