@@ -37,7 +37,7 @@ class Hog(Base):
                     " LEFT JOIN ("
                     " SELECT hog_identifier.hog_id AS identify, reservation.start_time AS start_time FROM reservation"
                     " LEFT JOIN hog_identifier ON hog_identifier.reservation_id = reservation.id) AS derivedtable"
-                    " ON identify = id_booked"
+                    " ON identify = hog.id"
                     " WHERE NOT (start_time < :start OR start_time > :end))"
                     " AND (hog.onduty = True)").params(start=start, end=end)
                     
