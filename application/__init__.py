@@ -57,6 +57,7 @@ from application.auth import views
 
 from application.reservations import models
 from application.reservations import views
+from application.reservations import services
 
 @login_manager.user_loader
 def load_user(user_id):

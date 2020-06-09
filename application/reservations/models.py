@@ -16,8 +16,8 @@ class Reservation(Base):
     verified = db.Column(db.Boolean, nullable=False)
     hogs = db.relationship("Hog", secondary=hog_identifier)
 
-    def __init__(self, duration_min):
-        self.start_time = db.func.current_timestamp()
+    def __init__(self, duration_min, start_time):
+        self.start_time = start_time
         self.duration_min = duration_min
         self.verified = False
         
