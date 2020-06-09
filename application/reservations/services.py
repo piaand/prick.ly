@@ -15,16 +15,9 @@ def get_available_hogs(request_time):
     
     end = start + timedelta(days=1)
     hogs = Hog.find_available_hogs(start, end)
-    print("Printing them hogs")
-    print(hogs)
     hog_selection = []
     for hog in hogs:
-        print("inside first loop")
-        print(hog)
         choice = (hog['id'], hog['name'])
         hog_selection.append(choice)
-
-    print("Printing them selection")
-    print(hog_selection)
     
     return hog_selection

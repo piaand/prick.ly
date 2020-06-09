@@ -26,9 +26,12 @@ def hogs_form():
 def hog_set_onduty(hog_id):
 
     hog = Hog.query.get(hog_id)
-    hog.onduty = True
+    if hog.onduty == True:
+        hog.onduty = False
+    else:
+        hog.onduty = True
+        
     db.session().commit()
-  
     return redirect(url_for("hogs_index"))
 
 @app.route("/hogs/<hog_id>/delete", methods=["POST"])

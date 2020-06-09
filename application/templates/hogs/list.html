@@ -17,7 +17,7 @@
         {% if user.is_authenticated and user.is_admin() %}
         <td>
           <form method="POST" action="{{ url_for('hog_set_onduty', hog_id=hog.id) }}">
-            <input type="submit" value="Put hedgehog to work!"/>
+            <input type="submit" value="Change hedgehog working status"/>
           </form>
         </td>
         <td>
