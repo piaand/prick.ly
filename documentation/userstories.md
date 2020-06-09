@@ -2,15 +2,15 @@
 In this document all the planned user stories are listed. In addition all SQL queries related to the user stories are listed.
 
 ## List of stories
-- As a user I want login to service to see my bookings with the hedgehogs
-- As a user I want to inspect all the details of a specific hedgehog at one view so that I can see all the information that may impact my decision
+- As a user I want login to service to see my bookings with the hedgehogs (done)
+- As a user I want to inspect all the details of a specific hedgehog at one view so that I can see all the information that may impact my decision (done)
 - As a user I want to search hedgehogs by their individual attributes, such as age, so that I can pick the one I want to meet
-- As a user I want to filter out those hedgehogs that are not available at the time I suggest
-- As a user I want to book a meetup with one or several hedgehogs
-- As the admin I want to add and remove hedgehogs from the listing so that the listing remains up to date
-- As the admin I want to set hedgehogs on or off duty so that hedgehogs get a decent rest and are not overworked
-- As the admin I need to know that no one else can update the information about the hedgehogs
-- As the admin I want to see all hedgehogs in the service - firstly those that are on duty
+- As a user I want to filter out those hedgehogs that are not available at the time I suggest (done)
+- As a user I want to book a meetup with one or several hedgehogs (done)
+- As the admin I want to add and remove hedgehogs from the listing so that the listing remains up to date (done)
+- As the admin I want to set hedgehogs on or off duty so that hedgehogs get a decent rest and are not overworked (done)
+- As the admin I need to know that no one else than admins can update the information about the hedgehogs (done)
+- As the admin I want to see all hedgehogs in the service (done)
 - As the admin I need to see all booked hedgehogs at a given timespan (certain date, a week etc) so that I can follow the demand for hedgehogs
 
 ## Create database schemas
@@ -73,4 +73,19 @@ Below are the in production SQL queries and their respective user stories:
 LEFT JOIN ( SELECT SUM(reservation.duration_min) AS total, hog_identifier.hog_id AS identify FROM reservation\
 LEFT JOIN hog_identifier ON hog_identifier.reservation_id = reservation.id GROUP BY identify) AS derivedtable\
 ON identify = id ORDER BY total DESC
+- As a user I want login to service to see my bookings with the hedgehogs\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT reservation.id, reservation.date_created, reservation.date_modified, reservation_start_time, reservation_duration_min, reservation_account_id, reservation_verified FROM reservation\
+WHERE reservation.account_id = ?
+- As a user I want to filter out those hedgehogs that are not available at the time I suggest\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT hog.name AS name, hog.id AS id FROM hog WHERE id NOT IN\
+(SELECT hog.id AS id_booked FROM hog LEFT JOIN (\
+SELECT hog_identifier.hog_id AS identify, reservation.start_time AS start_time FROM reservation\
+LEFT JOIN hog_identifier ON hog_identifier.reservation_id = reservation.id) AS derivedtable\
+ON identify = hog.id WHERE NOT (start_time < ? OR start_time > ?))\
+AND (hog.onduty = True)
+- As a user I want to book a meetup with one or several hedgehogs\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INSERT INTO reservation (date_created, date_modified, start_time, duration_min, account_id, verified) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?, ?, ?)\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INSERT INTO hog_identifier (reservation_id, hog_id) VALUES (?, ?)
+- As the admin I need to know that no one else than admins can update the information about the hedgehogs
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Implementation of this functionality was not done in database level but as several secured checks before execution of the request
 
