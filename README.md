@@ -27,7 +27,14 @@ With Prick.ly it is possible to
 To see the updated user stories documentation, visit [here](documentation/userstories.md).
 
 ## Database description
-Below is a picture about the database plan for the Prick.ly service
+Below is a picture about the database plan for the Prick.ly service. More detailed SQL queries are documented with the [user stories](documentation/userstories.md).
 
 ![DB Prick.ly](documentation/prickly_db.png)
+
+## Further development ideas
+As with every project that has limited amount of resources and time not all the ideas get implemented. Here are few suggestions with no specific order:
+- As of now, the user can only add more hedgehogs to their reserved time. However, removing hedgehogs from reservation could concidered as well. Now the solution is to delete the reservation and create it with correct hedgehog
+- When admin needs to remove a hedgehog from the service it would be appropriate to notify all the users that have a booking with the specific hedgehog. This would be done by generating a list of users with the reservations in the future and extend the database with more user specific contact information such as email or phone numbers
+- There is a "verified" column in the database in the reservation table. This could be taken into use to notify users about their bookings or pushing them to for example read the safety instructions and guidance before their reserved event
+- One might say that one of the most important selection criteria for a visitor of a hedgehog petting zoo is the looks of a hedgehog. Pictures would definitely bring more visual aspect and appeal to the application and help users to compare hedgehogs and learn about their characteristics. This could be done by setting up a separate hedgehog picture server and linking the images there to the service.
 
