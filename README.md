@@ -26,6 +26,21 @@ With Prick.ly it is possible to
 
 To see the updated user stories documentation, visit [here](documentation/userstories.md).
 
+## Intallation instructions
+In order to install and run this program in your local machine you need to install Python 3.5 or newer version. Check you version with ```python3 --version``` or ```python --version``` and download a newer release if needed -  for example with ```brew install python3``` or from [here](https://www.python.org/downloads/).
+
+In addition you need PostGresSQL database management system to install the psycopg2 adapter. Follow instructions [here](https://postgresapp.com/)
+
+After this you are ready for the installation steps:
+
+1. Clone this repository to your local machine
+2. Create a virtual environment inside the repository with ```python3 -m venv venv```
+3. Launch the environment with ```source venv/bin/activate``` (and then upgrade you pip with ```pip install --upgrade pip```)
+4. Inside the repository do ```pip install -r requirements.txt```
+5. You're all set! Launch the application with ```python3 run.py``` - it opens at http://127.0.0.1:5000/
+
+If you want to launch the service in Heroku inside repository do ```heroku create``` and then ```git push heroku master```. Open the app with ```heroku open```. See the Procfile for further details about the deployment services in use.
+
 ## Database description
 Below is a picture about the database plan for the Prick.ly service. More detailed SQL queries are documented with the [user stories](documentation/userstories.md).
 
