@@ -22,15 +22,18 @@ With Prick.ly it is possible to
 - Delete a hedgehog from the database (for admins)
 
 To see the updated user stories documentation, visit [here](documentation/userstories.md).
-
-All the main functionalities of this app are found in the top navigation bar: "list all hedgehogs", "list all reservations" and "make a new reservation".
-
 ### User guide
+All the main functionalities of this app are found in the top navigation bar: <b>"list all hedgehogs"</b>, <b>"list all reservations"</b> and <b>"make a new reservation"</b>.
+
 All users, whether they are logged in or not, may go and see the listing of hedgehogs. For all the rest of the functionalities user must log in to the service - button can be found at the right corner of the site. If user has yet no credentials then they may sign in also from the right corner of the page.
 
-From reservation listing a logged in user sees all the reservation they have made with the hedgehogs. By clicking the "See attending hedgehogs" they can view the hedgehogs they have reserved and also add more hedgehogs to their reservation.
+From reservation listing, an authenticated user sees all the reservations they have made with the hedgehogs. By clicking the "See attending hedgehogs" they can view the hedgehogs they have reserved and also add more hedgehogs to their reservation.
 
-Making a new reservation happens in two phases: first user picks the date they want to meet hedgehogs and also tells how long session they want. Next the service shows all the hedgehogs that are available.  Currently to make sure all hedgehogs get their daily rest hedgehogs have only one meeting a day and user can pick only one hedgehog for their session when reserving the time. After making the reservation they may book more hedgehogs to meet from their reservation summary.
+Making a new reservation happens in two phases: 
+- first user picks the date they want to meet hedgehogs and also tells how long session they want. 
+- Next the service shows all the hedgehogs that are available.
+
+Currently to make sure all hedgehogs get their daily rest, hedgehogs have only one meeting a day and user can pick only one hedgehog for their session when reserving the time. After making the reservation they may book more hedgehogs to meet from their reservation summary at "list all reservations".
 
 ## Intallation instructions
 In order to install and run this program in your local machine you need to install Python 3.5 or newer version. Check you version with ```python3 --version``` or ```python --version``` and download a newer release if needed -  for example with ```brew install python3``` or from [here](https://www.python.org/downloads/).
