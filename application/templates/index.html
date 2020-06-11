@@ -1,7 +1,18 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <p>
-    Hello world!
-  </p>
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-sm-6">
+        <div id="landing-header">
+          <h1>Prick.ly</h1>
+          <h4>The world's first hedgehog petting zoo</h4>
+          <p>Reseach all the wonderfull and various kinds of hedgehogs and meet them in person</p>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <img src="{{ url_for('static', filename='images/landing_page_hedgehog.jpg') }}" alt="Hedgohog Picture" class="img-fluid"/>
+      </div>
+    </div>
+  </div>
 {% endblock %}

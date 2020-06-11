@@ -3,6 +3,7 @@
 {% block body %}
 <div class="container">
 	<div class="row">
+		<h3 class="header-style">Here are all your booked reservations</h3>
 		<table class="summary-table">
 			<tr>
 			{% if user.is_authenticated and user.is_admin() %}

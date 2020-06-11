@@ -3,9 +3,10 @@
 {% block body %}
 <div class="container">
     <div class="row">
+      <h3 class="header-style">Select your favourite hedgehog</h3>
       <form method="POST" action="{{ url_for('reservation_create', start=start, duration=duration) }}">
-		<h3>Select your favourite hedgehog</h3>
-		<p>Pick below a hedgehog for your <span>{{ duration }}</span> reservation at <span>{{ start }}</span></p>
+    <p>Pick below a hedgehog for your <span>{{ duration }}</span> minute reservation at <span>{{ start }}</span></p>
+    <p>If the toggle is empty all hedgehogs are reserved during this time.</p>
         <table>
           <tr>
               <td>
