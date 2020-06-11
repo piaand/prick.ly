@@ -22,20 +22,14 @@
     </div>
     <div class="row">
       <h3>Do you want to book another hedgehog for this session?</h3>
+      <p>If the toggle is empty all hedgehogs are reserved during this time.</p>
     </div>
     <div class="row">
       <form method="POST" action="{{ url_for('reservation_add_hedgehog', reservation_id=booking.id) }}">
         <table>
           <tr>
             <td>{{ form.hog.label }}</td>
-            <td placeholder="Write hedgehod's name">{{ form.hog }}</td>
-            <td>
-              <ul>
-                {% for error in form.hog.errors %}
-                <li>{{ error }}</li>
-                {% endfor %}
-              </ul>
-            </td>
+            <td>{{ form.hog }}</td>
           </tr>
           <tr>
             <td>
