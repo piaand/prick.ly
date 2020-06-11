@@ -1,5 +1,4 @@
 .summary-table {
-
 	width: 100%;
 }
 .row {
@@ -17,9 +16,13 @@
   }
   
   /* custom styles */
+  nav {
+	  font-size: 14px;
+  }
+ 
   body {
 	background: #e5e5e5;
-	font: 13px/1.4 Geneva, 'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
+	font: 20px/1.4 Geneva, 'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
   }
   label {
 	display: block;
@@ -30,5 +33,31 @@
 	background-color: #fff;
 	padding: 3px 5px;
 	box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
-	
+  }
+
+  #landing-header {
+	background:white;
+	padding: 1em;
+	border-radius: 5px;
+	margin-bottom: 3em;
+  }
+
+  .header-style {
+	width: 100%;
+	margin-bottom: 3em;
+  }
+
+  h1 {
+	margin-bottom: 50px;
+  }
+
+  h4 {
+	margin-bottom: 20px;
+  }
+
+  #nav-select {
+	padding-right: 1em;
+	padding-left: 1em;
+	color: rgba(255,255,255,.5);
+}
   }

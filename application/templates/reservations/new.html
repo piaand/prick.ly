@@ -3,10 +3,11 @@
 {% block body %}
 <div class="container">
     <div class="row">
-      <form method="POST" action="{{ url_for('reservation_update') }}">
-        <label for="datereserve">Select the date</label>
-        {{ form.start(class='datepicker') }}
-        <table>
+      <h3 class="header-style">Make a new reservation</h3>
+        <form method="POST" action="{{ url_for('reservation_update') }}">
+          <label for="datereserve">Select the date</label>
+          {{ form.start(class='datepicker') }}
+        <table class="summary-table">
             <tr>
               <td>
                 {{ form.duration.label }}
