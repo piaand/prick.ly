@@ -4,14 +4,14 @@ In this document all the planned user stories are listed. In addition all SQL qu
 ## List of stories
 - As a user I want login to service to see my bookings with the hedgehogs (done)
 - As a user I want to inspect all the details of a specific hedgehog at one view so that I can see all the information that may impact my decision (done)
-- As a user I want to search hedgehogs by their individual attributes, such as age, so that I can pick the one I want to meet
+- As a user I want to search hedgehogs by their individual attributes, such as age, so that I can pick the one I want to meet (not done)
 - As a user I want to filter out those hedgehogs that are not available at the time I suggest (done)
 - As a user I want to book a meetup with one or several hedgehogs (done)
 - As the admin I want to add and remove hedgehogs from the listing so that the listing remains up to date (done)
 - As the admin I want to set hedgehogs on or off duty so that hedgehogs get a decent rest and are not overworked (done)
 - As the admin I need to know that no one else than admins can update the information about the hedgehogs (done)
 - As the admin I want to see all hedgehogs in the service (done)
-- As the admin I need to see all booked hedgehogs at a given timespan (certain date, a week etc) so that I can follow the demand for hedgehogs
+- As the admin I need to see all booked hedgehogs at a given timespan (certain date, a week etc) so that I can follow the demand for hedgehogs (quick fix done)
 
 ## Create database schemas
 Below is the current (in production) schema about the Prick.ly database
@@ -89,3 +89,6 @@ AND (hog.onduty = True)
 - As the admin I need to know that no one else than admins can update the information about the hedgehogs
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Implementation of this functionality was not done in database level but as several secured checks before execution of the request
 
+## Not yet finished functionalities
+- Hedgehog database has very little attributes - therefore no search is yet implemented on filtering by hedgehog
+- Admin cannot view the reservation situation (except by doing the reservation themselves). Quick fix was implemented to the hedgehog listing page where the admin can see how many hedgehogs are available today.
