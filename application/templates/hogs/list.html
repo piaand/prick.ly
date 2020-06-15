@@ -37,6 +37,9 @@
         <a href="{{ url_for('hogs_form') }}">Add a hedgehog</a>
     </button>
   </div>
+  <div class="row">
+    <p>Amount of hedgehogs available today is {{ available }}</p>
+  </div>
   {% endif %}
 </div>
 {% endblock %}

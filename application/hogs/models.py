@@ -48,3 +48,23 @@ class Hog(Base):
             response.append({"name":row[0], "id":row[1]})
         
         return response
+    
+    @staticmethod
+    def count_available_hogs(start, end):
+        stmt = text(" SELECT COUNT(hog.id) AS id_count FROM hog"
+                    " WHERE id NOT IN"
+                    " (SELECT hog.id AS id_booked FROM hog"
+                    " LEFT JOIN ("
+                    " SELECT hog_identifier.hog_id AS identify, reservation.start_time AS start_time FROM reservation"
+                    " LEFT JOIN hog_identifier ON hog_identifier.reservation_id = reservation.id) AS derivedtable"
+                    " ON identify = hog.id"
+                    " WHERE NOT (start_time < :start OR start_time > :end))"
+                    " AND (hog.onduty = True)").params(start=start, end=end)
+                    
+        res = db.engine.execute(stmt)
+  
+        response = []
+        for row in res:
+            response.append({"id_count":row[0]})
+        
+        return response

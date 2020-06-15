@@ -6,15 +6,26 @@ from application.hogs.models import Hog
 from application.hogs.forms import HogForm
 from application.auth.models import User
 
+import datetime
+from datetime import timedelta
+
+def get_availability_amount():
+    today = datetime.date.today()
+    end = today + timedelta(days=1)
+    amount = Hog.count_available_hogs(today, end)
+    row = amount[0]
+    nb = row.get('id_count')
+    return nb
 
 @app.route("/hogs", methods=["GET"])
 def hogs_index():
+    hog_availability = get_availability_amount()
     if current_user.is_authenticated:
         user_id = current_user.get_id()
         user = User.query.get(user_id)
     else:
         user = User("Visitor","visitor","visit","GUEST")
-    return render_template("hogs/list.html", hogs = Hog.find_popular_hogs(), user = user)
+    return render_template("hogs/list.html", hogs = Hog.find_popular_hogs(), user = user, available = hog_availability)
 
 @app.route("/hogs/new/")
 @login_required(role="ADMIN")
