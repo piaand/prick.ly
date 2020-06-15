@@ -2,6 +2,7 @@ from application.reservations.forms import ReservationForm, SummaryForm, Reserva
 from flask import redirect, render_template, request, url_for
 
 from application.hogs.models import Hog
+from application.reservations.models import Reservation
 
 import datetime
 from datetime import timedelta
@@ -21,3 +22,12 @@ def get_available_hogs(request_time):
         hog_selection.append(choice)
     
     return hog_selection
+
+def create_booking(duration, start, id, hog):
+    format='%Y-%m-%d'
+    start_dt = datetime.datetime.strptime(start, format)
+    
+    book = Reservation(duration, start_dt)
+    book.account_id = id
+    book.hogs.append(hog)
+    return book

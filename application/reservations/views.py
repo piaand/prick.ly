@@ -6,7 +6,7 @@ from application.hogs.models import Hog
 from application.auth.models import User
 from application.reservations.models import Reservation
 from application.reservations.forms import ReservationForm, SummaryForm, ReservationSelectForm
-from .services import get_available_hogs
+from .services import get_available_hogs, create_booking
 
 import datetime
 from datetime import timedelta
@@ -43,7 +43,6 @@ def reservations_form_select(start, duration):
 def reservation_update():
 
     form = ReservationForm(request.form)
-
     if not form.validate():
         return render_template("reservations/new.html", form = form)
     
@@ -57,7 +56,11 @@ def reservation_add_hedgehog(reservation_id):
 
     form = SummaryForm(request.form)
     
-    hog = Hog.query.get(form.hog.data)
+    hog_id = form.hog.data
+    if not hog_id:
+        return redirect(url_for("reservation_hogs", reservation_id = reservation_id))
+    
+    hog = Hog.query.get(hog_id)
     book = Reservation.query.get(reservation_id)
     book.hogs.append(hog)
 
@@ -79,8 +82,7 @@ def reservation_verification(reservation_id):
 def reservation_hogs(reservation_id):
     
     book = Reservation.query.get(reservation_id)
-    required_time = book.start_time
-    hogs = get_available_hogs(required_time)
+    hogs = get_available_hogs(book.start_time)
     form = SummaryForm()
     form.hog.choices = hogs 
     return render_template("reservations/summary.html", hedgehogs = book.get_hogs(), booking = book, form = form)
@@ -90,14 +92,13 @@ def reservation_hogs(reservation_id):
 def reservation_create(start, duration):
     
     form = ReservationSelectForm(request.form)
-    format='%Y-%m-%d'
-    hog = Hog.query.get(form.hog.data)
-    start_dt = datetime.datetime.strptime(start, format)
+    hog_id = form.hog.data
+    if not hog_id:
+        return redirect(url_for("reservations_form"))
     
-    book = Reservation(duration, start_dt)
-    book.account_id = current_user.id
-    book.hogs.append(hog)
-
+    hog = Hog.query.get(hog_id)
+    
+    book = create_booking(duration, start, current_user.id, hog)
     db.session().add(book)
     db.session().commit()
     return redirect(url_for("reservations_index"))

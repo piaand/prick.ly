@@ -3,7 +3,7 @@
 {% block body %}
 <div class="container">
     <div class="row">
-      <h1>Reservation at <span>{{ booking.start_time }}</span></h1>
+      <h1>Reservation on <span>{{ booking.start_time.strftime('%Y-%m-%d') }}</span></h1>
     </div>
     <div class="row">
       <div>
