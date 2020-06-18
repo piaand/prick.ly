@@ -7,13 +7,23 @@ from application.reservations.models import Reservation
 import datetime
 from datetime import timedelta
 
+def validate_start_time(time):
+    if time >= datetime.datetime.today():
+        return True
+    else:
+        return False
+
+def create_start_time(time):
+    if isinstance(time, datetime.datetime):
+        start = time
+    else: 
+        start = datetime.datetime.strptime(time, '%Y-%m-%d')
+    
+    return start  
+
 def get_available_hogs(request_time):
     
-    if isinstance(request_time, datetime.datetime):
-        start = request_time
-    else: 
-        start = datetime.datetime.strptime(request_time, '%Y-%m-%d')
-    
+    start = create_start_time(request_time)
     end = start + timedelta(days=1)
     hogs = Hog.find_available_hogs(start, end)
     hog_selection = []
@@ -24,9 +34,7 @@ def get_available_hogs(request_time):
     return hog_selection
 
 def create_booking(duration, start, id, hog):
-    format='%Y-%m-%d'
-    start_dt = datetime.datetime.strptime(start, format)
-    
+    start_dt = create_start_time(start)
     book = Reservation(duration, start_dt)
     book.account_id = id
     book.hogs.append(hog)

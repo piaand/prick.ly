@@ -6,7 +6,7 @@ from application.hogs.models import Hog
 from application.auth.models import User
 from application.reservations.models import Reservation
 from application.reservations.forms import ReservationForm, SummaryForm, ReservationSelectForm
-from .services import get_available_hogs, create_booking
+from .services import get_available_hogs, create_booking, create_start_time, validate_start_time
 
 import datetime
 from datetime import timedelta
@@ -22,9 +22,9 @@ def reservations_index():
     else:
         return render_template("reservations/list.html", reservations = db.session.query(Reservation).filter(Reservation.account_id == user.get_id()), user = user)
 
-@app.route("/reservations/new/")
+@app.route("/reservations/new/", methods=["GET"])
 @login_required
-def reservations_form():
+def reservations_form(early=False):
     
     form = ReservationForm()
     return render_template("reservations/new.html", form=form)
@@ -32,6 +32,10 @@ def reservations_form():
 @app.route("/reservations/new/<start>/<duration>/")
 @login_required
 def reservations_form_select(start, duration):
+    
+    start_dt = create_start_time(start)
+    if not validate_start_time(start_dt):
+        return redirect(url_for("reservations_form"))
     
     hogs = get_available_hogs(start)
     form = ReservationSelectForm()
