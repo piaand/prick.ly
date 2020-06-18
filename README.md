@@ -59,6 +59,7 @@ Below is a picture about the database plan for the Prick.ly service. More detail
 
 ## Further development ideas
 As with every project that has limited amount of resources and time not all the ideas get implemented. Here are few suggestions with no specific order:
+- The booking happens on a date level - this could be more specific by adding a time to the reservation. On the same go more validation of what time (during regular business hours) one may reserve their hedgehog.
 - As of now, the user can only add more hedgehogs to their reserved time. However, removing hedgehogs from reservation could concidered as well. Now the solution is to delete the reservation and create it with correct hedgehog
 - When admin needs to remove a hedgehog from the service it would be appropriate to notify all the users that have a booking with the specific hedgehog. This would be done by generating a list of users with the reservations in the future and extend the database with more user specific contact information such as email or phone numbers
 - There is a "verified" column in the database in the reservation table. This could be taken into use to notify users about their bookings or pushing them to for example read the safety instructions and guidance before their reserved event
