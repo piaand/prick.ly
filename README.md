@@ -9,6 +9,8 @@ To log in to the service as admin use the following:\
 username:<b> admin</b>\
 password:<b> hogmaster</b>
 
+This project was done as a solo project but students gave each others feedback via github issues - you can find some of the other student's comments about my work there.
+
 ## Project description
 Prick.ly is the world’s first hedgehog petting zoo. Hedgehog lovers may log into the service to reseach the wonderfull various kind of hedgehogs they would like to meet in person. User that is logged in may book a meeting time with one or more hedgehogs at the same time - given that the hedgehogs are available and not on holiday or booked by some other keen hogger. Prick.ly service administratives can add new hedgehogs to the service and make sure that the status of every hedgehog is correct.
 
